@@ -1,0 +1,18 @@
+3 81 130 203 150 174 190 30 31 
+32 does not exist
+30 exists
+150 exists
+Wrong command!
+Wrong command!
+Wrong command!
+Wrong command!
+150 exists
+150 exists
+Wrong command!
+Wrong command!
+3 exists
+3 exists
+Wrong command!
+Wrong command!
+3 exists
+Wrong command!
