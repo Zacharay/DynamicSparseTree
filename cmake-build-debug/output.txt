@@ -2,17 +2,11 @@
 32 does not exist
 30 exists
 150 exists
-Wrong command!
-Wrong command!
-Wrong command!
-Wrong command!
+150 does not exist
 150 exists
-150 exists
-Wrong command!
-Wrong command!
+3 does not exist
 3 exists
-3 exists
-Wrong command!
-Wrong command!
-3 exists
-Wrong command!
+3 does not exist
+30 does not exist
+30 exists
+30 does not exist
