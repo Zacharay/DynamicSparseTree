@@ -1,3 +1,0 @@
-/home/zachary/cppProjects/DynamicSparseTable/cmake-build-debug/CMakeFiles/DynamicSparseTable.dir
-/home/zachary/cppProjects/DynamicSparseTable/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/zachary/cppProjects/DynamicSparseTable/cmake-build-debug/CMakeFiles/rebuild_cache.dir

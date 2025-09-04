@@ -6,12 +6,6 @@ struct Node {
     Node(int value) : val(value),  childNodes(nullptr) {}
 
     ~Node() {
-        // if (childNodes) {
-        //     for (int i = 0; i < numChildren; ++i) {
-        //         delete childNodes[i];
-        //     }
-        //     delete[] childNodes;
-        // }
     }
 
     void ensureChildArrayAllocated(int numChildren) {
@@ -105,9 +99,6 @@ public:
         return false;
     }
 
-    Node* findNodeWithKey(int key) {
-
-    }
 
     Node* findParent(Node*& parent,int key, int &pNodeChildren) {
         if(!m_root)return nullptr;
@@ -153,50 +144,51 @@ public:
 
     void deleteKey(int key) {
         int pNodeChildren;
-
         Node *pNodeParent = nullptr;
-        Node *pNode = findParent(pNodeParent,key, pNodeChildren);
+        Node *pNode = findParent(pNodeParent, key, pNodeChildren);
+        if (!pNode) return;
 
-        Node *qNode = pNode;
-        int qNodeChildIndex = getLeftMostChildIndex(qNode, pNodeChildren);
-        if(qNodeChildIndex == -1) {
-
-            if(pNodeParent) {
-                int pNodeParentChildren = pNodeParent==m_root ? n : k;
-                for(int i=0;i<pNodeParentChildren;i++) {
-                    if(pNodeParent->childNodes[i] && pNodeParent->childNodes[i]->val == key) {
+        // Look for external left-most descendant qNode
+        Node* qNode = pNode;
+        Node* qParent = nullptr;
+        int qChildIdx = getLeftMostChildIndex(qNode, pNodeChildren);
+        if (qChildIdx == -1) {
+            // pNode is a leaf
+            if (pNodeParent) {
+                int pParentChildren = (pNodeParent == m_root ? n : k);
+                for (int i = 0; i < pParentChildren; ++i) {
+                    if (pNodeParent->childNodes[i] == pNode) {
                         delete pNodeParent->childNodes[i];
                         pNodeParent->childNodes[i] = nullptr;
+                        return;
                     }
                 }
-            }
-            else {
+            } else {
+                // Deleting root
+                delete m_root;
                 m_root = nullptr;
-                delete qNode;
             }
-
             return;
         }
 
-
-
-        while(qNodeChildIndex != -1) {
-            pNodeParent = qNode;
-            qNode = qNode->childNodes[qNodeChildIndex];
-            qNodeChildIndex = getLeftMostChildIndex(qNode, k);
+        // Traverse left-most children
+        while (qChildIdx != -1) {
+            qParent = qNode;
+            qNode = qNode->childNodes[qChildIdx];
+            qChildIdx = getLeftMostChildIndex(qNode, k);
         }
 
-
-
+        // Swap values
         pNode->val = qNode->val;
 
-        for(int i=0;i<k;i++) {
-            if(pNodeParent->childNodes && pNodeParent->childNodes[i] && pNodeParent->childNodes[i]->val == key) {
-                pNodeParent->childNodes[i] = nullptr;
-                delete pNodeParent->childNodes[i];
+        // Remove qNode from its parent
+        for (int i = 0; i < k; ++i) {
+            if (qParent->childNodes[i] == qNode) {
+                delete qNode;
+                qParent->childNodes[i] = nullptr;
+                break;
             }
         }
-
     }
 
 
